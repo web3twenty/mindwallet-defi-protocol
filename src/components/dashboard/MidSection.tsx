@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Badge } from '@/src/components/ui/Primitives';
 import { STAKING_POOLS, MARKET_STATS, TARGET_STATS } from '@/src/constants';
-import { Brain, DollarSign, Zap, Star, ShoppingBag, Award, TrendingUp, Activity, Layers, Target, Clock, ChevronRight, ArrowUpRight, ShieldCheck, Users } from 'lucide-react';
+import { Brain, DollarSign, Zap, Star, ShoppingBag, Award, TrendingUp, Activity, Layers, Target, Clock, ChevronRight, ArrowUpRight, ShieldCheck, Users, Heart, Smile, Sprout, Gem } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { motion } from 'motion/react';
 
@@ -42,10 +42,15 @@ export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withd
 
           <div className="divide-y divide-white/5">
             {[
-              { name: 'MindChain Core', symbol: 'MIND', apy: '+24.5%', tvl: '$24.5M', staked: '12,500', icon: Zap, actionType: 'Stake', color: 'text-primary' },
-              { name: 'Governance Node', symbol: 'BMIND', apy: '+18.2%', tvl: '$18.2M', staked: '5,000', icon: ShieldCheck, actionType: 'Stake', color: 'text-blue-400' },
-              { name: 'Elite Liquidity', symbol: 'MUSD', apy: '+12.0%', tvl: '$10.0M', staked: '2,500', icon: TrendingUp, actionType: 'Transfer', color: 'text-purple-400' },
-              { name: 'Community Pool', symbol: 'USDT', apy: '+8.5%', tvl: '$15.8M', staked: '1,200', icon: Users, actionType: 'Transfer', color: 'text-orange-400' }
+              { name: 'MIND Staking Wallet', symbol: 'MIND', apy: '+24.5%', tvl: '$24.5M', staked: '12,500', icon: Zap, actionType: 'Stake', color: 'text-primary' },
+              { name: 'MUSD Staking Wallet', symbol: 'MUSD', apy: '+12.0%', tvl: '$10.0M', staked: '2,500', icon: TrendingUp, actionType: 'Stake', color: 'text-purple-400' },
+              { name: 'BMIND Staking Wallet', symbol: 'BMIND', apy: '+18.2%', tvl: '$18.2M', staked: '5,000', icon: ShieldCheck, actionType: 'Stake', color: 'text-blue-400' },
+              { name: 'Elite Staking Wallet', symbol: 'ELITE', apy: '+30.0%', tvl: '$5.5M', staked: '1,000', icon: Star, actionType: 'Stake', color: 'text-yellow-400' },
+              { name: 'Elite v2 Staking Wallet', symbol: 'ELITE v2', apy: '+35.5%', tvl: '$3.2M', staked: '450', icon: Award, actionType: 'Stake', color: 'text-primary' },
+              { name: 'Angel Wallet', symbol: 'ANGEL', apy: '+15.5%', tvl: '$2.8M', staked: '2,100', icon: Heart, actionType: 'Transfer', color: 'text-red-400' },
+              { name: 'Kids Wallet', symbol: 'KIDS', apy: '+10.2%', tvl: '$1.4M', staked: '800', icon: Smile, actionType: 'Transfer', color: 'text-orange-300' },
+              { name: 'Merchant Wallet', symbol: 'MERC', apy: '+14.8%', tvl: '$8.9M', staked: '3,400', icon: ShoppingBag, actionType: 'Transfer', color: 'text-blue-300' },
+              { name: 'Farming Wallet', symbol: 'FARM', apy: '+42.1%', tvl: '$12.1M', staked: '7,200', icon: Sprout, actionType: 'Stake', color: 'text-green-400' }
             ].map((pool, idx) => (
               <motion.div 
                 key={idx}
@@ -78,7 +83,10 @@ export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withd
                       "h-9 px-5 text-[9px] font-black uppercase tracking-[0.2em] shadow-none rounded-xl transition-all",
                       pool.actionType === 'Transfer' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5"
                     )}
-                    onClick={() => pool.actionType === 'Transfer' && onAction('transfer', pool.symbol)}
+                    onClick={() => {
+                      if (pool.actionType === 'Transfer') onAction('transfer', pool.symbol);
+                      if (pool.actionType === 'Stake') onAction('stake', pool.symbol);
+                    }}
                   >
                     {pool.actionType}
                   </Button>

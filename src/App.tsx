@@ -6,17 +6,17 @@ import { StakingTable, MarketWidgets } from '@/src/components/dashboard/MidSecti
 import { TransactionSection } from '@/src/components/dashboard/TransactionSection';
 import { EliteMember } from '@/src/components/dashboard/EliteMember';
 import { Profile } from '@/src/components/dashboard/Profile';
-import { DepositModal, WithdrawModal, TransferModal, ApplyEliteModal } from '@/src/components/dashboard/Modals';
+import { DepositModal, WithdrawModal, TransferModal, ApplyEliteModal, StakeModal } from '@/src/components/dashboard/Modals';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [modal, setModal] = useState<{ type: 'deposit' | 'withdraw' | 'transfer' | 'apply-elite' | null, asset: string }>({ type: null, asset: '' });
+  const [modal, setModal] = useState<{ type: 'deposit' | 'withdraw' | 'transfer' | 'stake' | 'apply-elite' | null, asset: string }>({ type: null, asset: '' });
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const openModal = (type: 'deposit' | 'withdraw' | 'transfer' | 'apply-elite', asset: string) => {
+  const openModal = (type: 'deposit' | 'withdraw' | 'transfer' | 'stake' | 'apply-elite', asset: string) => {
     setModal({ type, asset });
   };
 
@@ -149,6 +149,13 @@ export default function App() {
         )}
         {modal.type === 'transfer' && (
           <TransferModal 
+            isOpen={true} 
+            onClose={closeModal} 
+            asset={modal.asset} 
+          />
+        )}
+        {modal.type === 'stake' && (
+          <StakeModal 
             isOpen={true} 
             onClose={closeModal} 
             asset={modal.asset} 

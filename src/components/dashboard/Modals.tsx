@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input } from '@/src/components/ui/Primitives';
-import { Copy, QrCode, ArrowUpRight, ArrowDownLeft, Send, User, Wallet, Check, X, ArrowRightLeft, ShieldCheck } from 'lucide-react';
+import { Copy, QrCode, ArrowUpRight, ArrowDownLeft, Send, User, Wallet, Check, X, ArrowRightLeft, ShieldCheck, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 
@@ -206,6 +206,128 @@ export const TransferModal = ({ isOpen, onClose, asset }: { isOpen: boolean, onC
               <div className="absolute inset-x-0 bottom-0 h-1 bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
             </Button>
           </div>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+export const StakeModal = ({ isOpen, onClose, asset }: { isOpen: boolean, onClose: () => void, asset: string }) => {
+  const [amount, setAmount] = useState('');
+  const [duration, setDuration] = useState(90);
+  
+  const balances = {
+    MIND: 12500.50,
+    MUSD: 2500.00,
+    BMIND: 5000.00,
+    ELITE: 1000.00,
+    USDT: 282.10
+  }[asset as keyof typeof balances] || 0;
+
+  const apyData = {
+    MIND: 24.5,
+    MUSD: 12.0,
+    BMIND: 18.2,
+    ELITE: 30.0,
+    'ELITE v2': 35.5,
+    FARM: 42.1,
+    ANGEL: 15.5,
+    KIDS: 10.2,
+    MERC: 14.8
+  }[asset as keyof typeof apyData] || 10.0;
+
+  const dailyReward = amount ? (Number(amount) * (apyData / 100)) / 365 : 0;
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} title={`Protocol Staking: ${asset}`}>
+      <div className="space-y-6">
+        {/* Balance Display */}
+        <div className="flex justify-between items-end px-2">
+          <div className="space-y-1">
+            <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest">Available liquidity</p>
+            <p className="text-xl font-mono font-bold text-white tracking-tighter">
+              {balances.toLocaleString()} <span className="text-xs text-gray-500 uppercase">{asset}</span>
+            </p>
+          </div>
+          <button 
+            className="text-[9px] font-black text-primary hover:underline uppercase tracking-widest pb-1"
+            onClick={() => setAmount(balances.toString())}
+          >
+            Use Max
+          </button>
+        </div>
+
+        {/* Amount Input */}
+        <div className="space-y-2">
+          <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-2">Stake Magnitude</label>
+          <div className="relative">
+            <Input 
+              type="number"
+              value={amount} 
+              onChange={(e) => setAmount(e.target.value)} 
+              placeholder="0.00"
+              className="h-16 bg-white/[0.03] border-white/10 focus:border-primary/50 text-2xl font-mono font-bold pl-14"
+            />
+            <Zap size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
+            <div className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-black text-gray-500 uppercase tracking-widest">
+              {asset}
+            </div>
+          </div>
+        </div>
+
+        {/* Duration Selection */}
+        <div className="space-y-3">
+          <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-2">Lockup Duration</label>
+          <div className="grid grid-cols-4 gap-2">
+            {[30, 90, 180, 365].map((d) => (
+              <button
+                key={d}
+                onClick={() => setDuration(d)}
+                className={cn(
+                  "py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all",
+                  duration === d 
+                    ? "bg-primary border-primary text-black" 
+                    : "bg-white/5 border-white/5 text-gray-500 hover:border-white/20"
+                )}
+              >
+                {d} Days
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Staking Intelligence */}
+        <div className="p-5 rounded-3xl bg-black/40 border border-white/5 space-y-4">
+          <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+            <span className="text-gray-500">APY Intelligence</span>
+            <span className="text-primary font-mono">{apyData}% Fixed</span>
+          </div>
+          <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+            <span className="text-gray-500">Daily Reward Yield</span>
+            <div className="text-right">
+              <p className="text-white font-mono">{dailyReward.toFixed(4)} {asset}</p>
+              <p className="text-[8px] text-gray-600 font-bold uppercase tracking-tighter italic">Estimated per cycle</p>
+            </div>
+          </div>
+          <div className="h-px bg-white/5" />
+          <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+            <span className="text-gray-500">Maturity Date</span>
+            <span className="text-white font-mono uppercase tracking-tighter">
+              {new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+
+        {/* Action */}
+        <div className="flex gap-4 pt-2">
+          <Button variant="secondary" onClick={onClose} className="flex-1 h-14 uppercase text-[10px] font-black tracking-widest opacity-60 hover:opacity-100">Abort</Button>
+          <Button 
+            className="flex-1 h-14 bg-primary text-black group relative overflow-hidden"
+            disabled={!amount || Number(amount) <= 0 || Number(amount) > balances}
+          >
+            <span className="relative z-10 flex items-center justify-center gap-2 uppercase text-[10px] font-black tracking-[0.2em]">Authorize Stake <ArrowUpRight size={16} /></span>
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform" />
+          </Button>
         </div>
       </div>
     </Modal>

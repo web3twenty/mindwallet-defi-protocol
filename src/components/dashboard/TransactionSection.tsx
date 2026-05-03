@@ -35,10 +35,10 @@ export const TransactionSection = () => {
         </div>
       </div>
 
-      <div className="glass rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/5">
+      <div className="glass rounded-3xl overflow-hidden border border-white/5">
         <div className="overflow-x-auto custom-scrollbar">
           <div className="min-w-[800px] md:min-w-[900px]">
-            <div className="grid grid-cols-7 px-6 md:px-8 py-5 border-b border-white/10 text-gray-400 text-[10px] font-bold uppercase tracking-widest bg-white/[0.03]">
+            <div className="grid grid-cols-7 px-6 md:px-8 py-4 border-b border-white/10 text-gray-400 text-[9px] font-bold uppercase tracking-widest bg-white/[0.03]">
               <span className="">No.</span>
               <span className="col-span-2">Method</span>
               <span className="">Amount</span>
@@ -53,21 +53,21 @@ export const TransactionSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="grid grid-cols-7 px-6 md:px-8 py-5 items-center hover:bg-white/[0.02] transition-colors group cursor-pointer"
+                  className="grid grid-cols-7 px-6 md:px-8 py-4 items-center hover:bg-white/[0.02] transition-colors group cursor-pointer"
                 >
-                  <div className="font-mono text-[11px] text-gray-600">{tx.no}</div>
+                  <div className="font-mono text-[10px] text-gray-600">{tx.no}</div>
                   <div className="col-span-2">
-                    <p className="text-sm font-bold text-white group-hover:text-primary transition-colors">{tx.method}</p>
-                    <p className="text-[10px] text-gray-500">{tx.date}</p>
+                    <p className="text-xs font-bold text-white group-hover:text-primary transition-colors">{tx.method}</p>
+                    <p className="text-[9px] text-gray-500">{tx.date}</p>
                   </div>
-                  <div className="font-mono text-sm font-bold text-white tracking-widest">{tx.amount}</div>
+                  <div className="font-mono text-xs font-bold text-white tracking-widest">{tx.amount}</div>
                   <div className="flex items-center gap-2">
                     <div className={cn("w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor]", tx.type === 'Credit' ? 'text-primary' : 'text-red-400')} />
-                    <span className={cn("text-[10px] font-black uppercase tracking-widest", tx.type === 'Credit' ? 'text-primary' : 'text-red-400')}>
+                    <span className={cn("text-[9px] font-black uppercase tracking-widest", tx.type === 'Credit' ? 'text-primary' : 'text-red-400')}>
                       {tx.type}
                     </span>
                   </div>
-                  <div className="col-span-2 text-[11px] text-gray-500 font-medium truncate italic" title={tx.description}>
+                  <div className="col-span-2 text-[10px] text-gray-500 font-medium truncate italic" title={tx.description}>
                     {tx.description}
                   </div>
                 </motion.div>
@@ -76,24 +76,24 @@ export const TransactionSection = () => {
           </div>
         </div>
 
-        <div className="px-6 md:px-8 py-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 bg-white/[0.01]">
-          <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Showing 10 of 2,450 records</p>
+        <div className="px-6 md:px-8 py-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6 bg-white/[0.01]">
+          <p className="text-[9px] font-bold text-gray-600 uppercase tracking-widest">Showing 10 of 2,450 records</p>
           <div className="flex items-center gap-3 md:gap-4 overflow-x-auto max-w-full pb-2 sm:pb-0">
-            <button className="shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-primary/50 transition-all">
-              <ArrowLeft size={14} />
+            <button className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-primary/50 transition-all">
+              <ArrowLeft size={12} />
             </button>
             <div className="flex gap-1.5 md:gap-2">
               {[1, 2, 3, '...', 10].map((p, i) => (
                 <button key={i} className={cn(
-                  "shrink-0 w-8 h-8 rounded-lg text-[10px] font-black transition-all",
+                  "shrink-0 w-7 h-7 rounded-lg text-[9px] font-black transition-all",
                   p === 1 ? "bg-primary text-black" : "text-gray-500 hover:text-white hover:bg-white/5"
                 )}>
                   {p}
                 </button>
               ))}
             </div>
-            <button className="shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-primary/50 transition-all">
-              <ArrowRight size={14} />
+            <button className="shrink-0 w-7 h-7 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-white hover:border-primary/50 transition-all">
+              <ArrowRight size={12} />
             </button>
           </div>
         </div>

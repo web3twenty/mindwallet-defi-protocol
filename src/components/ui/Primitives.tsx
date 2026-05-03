@@ -85,15 +85,15 @@ export const Modal = ({
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative w-full max-w-lg glass rounded-[2.5rem] p-8 space-y-6 shadow-2xl border-white/10"
+        className="relative w-full max-w-md glass rounded-3xl p-6 space-y-5 shadow-2xl border-white/10"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-bold font-mono tracking-tighter uppercase italic">{title}</h3>
+          <h3 className="text-lg font-bold font-mono tracking-tighter uppercase italic">{title}</h3>
           <button 
             onClick={onClose}
-            className="p-2 hover:bg-white/5 rounded-full transition-colors text-gray-500 hover:text-white"
+            className="p-1.5 hover:bg-white/5 rounded-full transition-colors text-gray-500 hover:text-white"
           >
-            <Zap className="rotate-45" size={24} />
+            <Zap className="rotate-45" size={18} />
           </button>
         </div>
         {children}

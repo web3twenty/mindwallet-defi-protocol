@@ -28,14 +28,14 @@ export default function App() {
     switch (activeTab) {
       case 'dashboard':
         return (
-          <div className="space-y-12">
-            <section className="space-y-8">
+          <div className="space-y-8">
+            <section className="space-y-6">
               <UserProfileCard onAction={openModal} />
               <BalanceGrid onAction={openModal} />
             </section>
 
-            <section className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-              <div className="xl:col-span-8 space-y-12">
+            <section className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+              <div className="xl:col-span-8 space-y-8">
                 <StakingTable onAction={openModal} />
               </div>
               <div className="xl:col-span-4 sticky top-24">
@@ -102,7 +102,7 @@ export default function App() {
 
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto custom-scrollbar relative z-10 px-4 md:px-8">
-          <div className="max-w-[1600px] mx-auto py-6 md:py-8">
+          <div className="max-w-[1400px] mx-auto py-6 md:py-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}

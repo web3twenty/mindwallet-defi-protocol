@@ -29,10 +29,10 @@ export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withd
       </div>
     </div>
 
-    <div className="bg-black/20 border border-white/5 rounded-[2.5rem] overflow-hidden">
+    <div className="bg-black/20 border border-white/5 rounded-3xl overflow-hidden">
       <div className="overflow-x-auto custom-scrollbar">
         <div className="min-w-[800px]">
-          <div className="grid grid-cols-6 px-8 py-5 border-b border-white/5 text-gray-700 text-[10px] font-black uppercase tracking-[0.2em] bg-white/[0.01]">
+          <div className="grid grid-cols-6 px-8 py-4 border-b border-white/5 text-gray-700 text-[9px] font-black uppercase tracking-[0.2em] bg-white/[0.01]">
             <span className="col-span-2">Asset / Pool</span>
             <span className="text-center md:text-left">APY Yield</span>
             <span className="">TVL Liquid</span>
@@ -80,7 +80,7 @@ export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withd
                     size="sm" 
                     variant={pool.actionType === 'Stake' ? 'primary' : 'secondary'} 
                     className={cn(
-                      "h-9 px-5 text-[9px] font-black uppercase tracking-[0.2em] shadow-none rounded-xl transition-all",
+                      "h-8 px-4 text-[8px] font-black uppercase tracking-[0.2em] shadow-none rounded-xl transition-all",
                       pool.actionType === 'Transfer' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5"
                     )}
                     onClick={() => {
@@ -119,7 +119,7 @@ export const MarketWidgets = () => (
             <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none">{stat.label}</span>
             <span className={cn("text-[9px] font-black underline decoration-2 underline-offset-2", stat.up ? "text-primary decoration-primary/30" : "text-red-500 decoration-red-500/30")}>{stat.change}</span>
           </div>
-          <p className="text-lg font-bold font-mono tracking-tighter text-gray-200 group-hover:text-white transition-colors">{stat.value}</p>
+          <p className="text-base font-bold font-mono tracking-tighter text-gray-200 group-hover:text-white transition-colors">{stat.value}</p>
         </div>
       ))}
     </div>

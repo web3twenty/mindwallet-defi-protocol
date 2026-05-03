@@ -46,7 +46,7 @@ export const UserProfileCard = ({ onAction }: { onAction: (type: 'deposit' | 'wi
       <div className="space-y-0.5 text-center">
         <p className="text-[9px] font-black text-gray-600 uppercase tracking-[0.3em]">Vault Liquidity</p>
         <div className="flex flex-col">
-          <h3 className="text-2xl md:text-3xl font-black font-mono text-white tracking-tighter leading-none">5,000.53</h3>
+          <h3 className="text-xl md:text-2xl font-black font-mono text-white tracking-tighter leading-none">5,000.53</h3>
           <p className="text-[9px] font-black text-primary font-mono tracking-[0.2em] mt-1 uppercase">MIND Network Unit</p>
         </div>
       </div>
@@ -104,7 +104,7 @@ export const BalanceGrid = ({ onAction }: { onAction: (type: 'deposit' | 'withdr
           </div>
           
           <div className="space-y-0.5">
-            <h4 className="text-2xl font-black font-mono text-white tracking-tighter leading-none">
+            <h4 className="text-xl md:text-2xl font-black font-mono text-white tracking-tighter leading-none">
               {item.value} <span className="text-[10px] text-gray-600 font-bold tracking-widest">{item.symbol}</span>
             </h4>
           </div>

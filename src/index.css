@@ -19,8 +19,11 @@
 }
 
 @layer base {
+  html {
+    font-size: 93.75%;
+  }
   body {
-    @apply bg-background text-white antialiased;
+    @apply bg-background text-white antialiased overflow-x-hidden;
   }
 }
 

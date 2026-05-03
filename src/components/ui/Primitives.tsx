@@ -20,10 +20,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: 'px-3 py-1.5 text-xs',
-      md: 'px-5 py-2.5 text-sm',
-      lg: 'px-8 py-3.5 text-base',
-      icon: 'p-2.5',
+      sm: 'px-2.5 py-1.5 text-[10px]',
+      md: 'px-4 py-2 text-xs',
+      lg: 'px-6 py-3 text-sm',
+      icon: 'p-2',
     };
 
     return (
@@ -51,7 +51,7 @@ export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttribute
     <input
       ref={ref}
       className={cn(
-        "w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm font-mono font-bold text-white focus:outline-none focus:border-primary/50 transition-all placeholder:text-gray-700",
+        "w-full bg-white/5 border border-white/10 rounded-2xl p-3.5 text-xs font-mono font-bold text-white focus:outline-none focus:border-primary/50 transition-all placeholder:text-gray-700",
         className
       )}
       {...props}
@@ -123,7 +123,7 @@ export const Badge = ({ children, variant = 'default', className }: { children: 
     warning: 'bg-yellow-400/10 text-yellow-400',
   };
   return (
-    <span className={cn("px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider", variants[variant], className)}>
+    <span className={cn("px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider", variants[variant], className)}>
       {children}
     </span>
   );

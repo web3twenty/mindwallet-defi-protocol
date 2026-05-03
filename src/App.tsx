@@ -44,12 +44,25 @@ export default function App() {
             </section>
 
             <section className="pb-12">
-              <TransactionSection />
+              <TransactionSection onAction={(type) => setActiveTab(type)} />
             </section>
           </div>
         );
-      case 'elit':
+      case 'elite':
         return <EliteMember onAction={openModal} />;
+      case 'transactions':
+        return (
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+             <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h1 className="text-2xl md:text-3xl font-black font-mono tracking-tighter uppercase italic">Ledger Intelligence</h1>
+                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em]">Institutional Grade Audit Trail & Asset History</p>
+                </div>
+                <Button variant="outline" onClick={() => setActiveTab('dashboard')} className="h-10 px-6 text-[9px] font-black uppercase tracking-widest border-white/10">Back to Portal</Button>
+             </div>
+             <TransactionSection onAction={(type) => setActiveTab(type)} />
+          </div>
+        );
       case 'profile':
         return <Profile />;
       default:

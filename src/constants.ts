@@ -85,11 +85,11 @@ export interface Transaction {
 export const TRANSACTIONS: Transaction[] = Array.from({ length: 10 }).map((_, i) => ({
   id: `tx-${i}`,
   no: i + 1,
-  method: 'Daily Staking Bonus',
-  amount: '$0.55',
-  type: 'Credit',
-  description: 'Daily Bonus for purchasing Staking Package',
-  date: '2024-05-03'
+  method: i % 3 === 0 ? 'Liquid Staking Harvest' : i % 2 === 0 ? 'Node Validator Reward' : 'Daily Staking Bonus',
+  amount: i % 2 === 0 ? `$${(Math.random() * 50).toFixed(2)}` : `$${(Math.random() * 5).toFixed(2)}`,
+  type: i % 4 === 0 ? 'Debit' : 'Credit',
+  description: i % 4 === 0 ? 'Withdrawal to external wallet' : 'Daily Bonus for purchasing Staking Package',
+  date: new Date(Date.now() - i * 86400000).toISOString().split('T')[0]
 }));
 
 export const MARKET_STATS = {

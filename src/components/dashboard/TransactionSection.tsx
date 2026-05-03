@@ -4,7 +4,7 @@ import { History, ArrowRight, ArrowLeft } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { motion } from 'motion/react';
 
-export const TransactionSection = () => {
+export const TransactionSection = ({ onAction }: { onAction: (type: 'transactions') => void }) => {
   const [activeTab, setActiveTab] = useState<'cash' | 'token'>('cash');
 
   return (
@@ -13,25 +13,33 @@ export const TransactionSection = () => {
         <h3 className="text-xl font-bold font-mono tracking-tighter uppercase italic flex items-center gap-3 text-white">
           Recent Transactions <History size={20} className="text-primary" />
         </h3>
-        <div className="flex bg-white/5 rounded-full p-1 border border-white/10 w-fit">
+        <div className="flex items-center gap-4">
           <button 
-            onClick={() => setActiveTab('cash')}
-            className={cn(
-              "px-4 md:px-6 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all",
-              activeTab === 'cash' ? "bg-primary text-black" : "text-gray-500 hover:text-white"
-            )}
+            onClick={() => onAction('transactions')}
+            className="hidden md:flex items-center gap-2 text-[9px] font-black text-primary hover:text-white uppercase tracking-widest transition-all bg-primary/5 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary/20"
           >
-            Cash Wallet
+            View All Activity <ArrowRight size={12} />
           </button>
-          <button 
-            onClick={() => setActiveTab('token')}
-            className={cn(
-              "px-4 md:px-6 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all",
-              activeTab === 'token' ? "bg-primary text-black" : "text-gray-500 hover:text-white"
-            )}
-          >
-            Token Wallet
-          </button>
+          <div className="flex bg-white/5 rounded-full p-1 border border-white/10 w-fit">
+            <button 
+              onClick={() => setActiveTab('cash')}
+              className={cn(
+                "px-4 md:px-6 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all",
+                activeTab === 'cash' ? "bg-primary text-black" : "text-gray-500 hover:text-white"
+              )}
+            >
+              Cash Wallet
+            </button>
+            <button 
+              onClick={() => setActiveTab('token')}
+              className={cn(
+                "px-4 md:px-6 py-1.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all",
+                activeTab === 'token' ? "bg-primary text-black" : "text-gray-500 hover:text-white"
+              )}
+            >
+              Token Wallet
+            </button>
+          </div>
         </div>
       </div>
 

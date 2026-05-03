@@ -11,7 +11,10 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [modal, setModal] = useState<{ type: 'deposit' | 'withdraw' | 'transfer' | 'apply-elite' | null, asset: string }>({ type: null, asset: '' });
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const openModal = (type: 'deposit' | 'withdraw' | 'transfer' | 'apply-elite', asset: string) => {
     setModal({ type, asset });
@@ -61,8 +64,29 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-[#0A0A0A] text-white font-sans overflow-hidden">
-      {/* Sidebar - Fixed on desktop */}
-      <Sidebar activeId={activeTab} onSelect={setActiveTab} />
+      {/* Sidebar - Fixed on desktop, sliding on mobile */}
+      <Sidebar 
+        activeId={activeTab} 
+        onSelect={(id) => {
+          setActiveTab(id);
+          setIsSidebarOpen(false);
+        }} 
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
+      {/* Backdrop for mobile */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsSidebarOpen(false)}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55] lg:hidden"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Main viewport */}
       <div className="flex-1 flex flex-col overflow-hidden relative">
@@ -73,11 +97,12 @@ export default function App() {
         <Header 
           title={activeTab === 'elit' ? 'Elite Member' : activeTab === 'profile' ? 'My Profile' : activeTab.replace('-', ' ')} 
           onProfileClick={() => setActiveTab('profile')}
+          onMenuClick={toggleSidebar}
         />
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto custom-scrollbar relative z-10">
-          <div className="max-w-[1600px] mx-auto p-8">
+        <main className="flex-1 overflow-y-auto custom-scrollbar relative z-10 px-4 md:px-8">
+          <div className="max-w-[1600px] mx-auto py-6 md:py-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -91,12 +116,16 @@ export default function App() {
             </AnimatePresence>
 
             {/* Footer */}
-            <footer className="pt-12 pb-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em]">
-              <p>© 2024 MINDCHAIN NETWORK. ALL RIGHTS RESERVED.</p>
-              <div className="flex gap-8">
-                <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-                <a href="#" className="hover:text-primary transition-colors">Support</a>
+            <footer className="pt-12 pb-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 text-gray-500 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]">
+              <div className="text-center md:text-left space-y-2 md:space-y-0">
+                <p>© 2024 MINDCHAIN NETWORK. DISTRIBUTED PROTOCOL.</p>
+                <p className="md:hidden opacity-50">SHIELDED • DECENTRALIZED • SECURE</p>
+              </div>
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-8">
+                <a href="#" className="hover:text-primary transition-colors hover:translate-y-[-1px] transition-transform inline-block">Privacy Protocol</a>
+                <a href="#" className="hover:text-primary transition-colors hover:translate-y-[-1px] transition-transform inline-block">Service Terms</a>
+                <a href="#" className="hover:text-primary transition-colors hover:translate-y-[-1px] transition-transform inline-block">Node Support</a>
+                <a href="#" className="hover:text-primary transition-colors hidden md:inline-block text-white/40">Status: Active</a>
               </div>
             </footer>
           </div>

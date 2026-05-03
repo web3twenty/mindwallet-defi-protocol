@@ -1,34 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input } from '@/src/components/ui/Primitives';
-import { Copy, QrCode, ArrowUpRight, ArrowDownLeft, Send, User, Wallet, Check, X, ArrowRightLeft } from 'lucide-react';
+import { Copy, QrCode, ArrowUpRight, ArrowDownLeft, Send, User, Wallet, Check, X, ArrowRightLeft, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 
 export const DepositModal = ({ isOpen, onClose, asset }: { isOpen: boolean, onClose: () => void, asset: string }) => (
-  <Modal isOpen={isOpen} onClose={onClose} title={`Deposit ${asset}`}>
-    <div className="space-y-6 text-center">
-      <div className="bg-white p-4 rounded-3xl inline-block mx-auto">
-        <QrCode size={160} className="text-black" />
+  <Modal isOpen={isOpen} onClose={onClose} title={`Secure Inflow: ${asset}`}>
+    <div className="space-y-8 text-center relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10" />
+      
+      <div className="relative group inline-block">
+        <div className="bg-white p-5 rounded-[2.5rem] relative z-10 shadow-[0_0_50px_rgba(0,255,136,0.15)] group-hover:shadow-[0_0_60px_rgba(0,255,136,0.25)] transition-all">
+          <QrCode size={180} className="text-black" />
+          <div className="absolute inset-0 border-2 border-primary/20 rounded-[2.5rem] animate-pulse" />
+        </div>
+        <div className="absolute -inset-4 border border-white/5 rounded-[3rem] -z-10 bg-white/[0.02]" />
       </div>
       
-      <div className="space-y-2">
-        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Your {asset} Deposit Address</p>
-        <div className="flex bg-white/5 border border-white/10 rounded-2xl p-4 items-center justify-between group">
-          <code className="text-xs font-mono text-primary truncate mr-4">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</code>
-          <button className="text-gray-500 hover:text-white transition-colors">
+      <div className="space-y-3">
+        <div className="flex items-center justify-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
+            <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Primary Deposit Vector</p>
+        </div>
+        <div className="flex bg-black/40 border border-white/10 rounded-2xl p-4 items-center justify-between group hover:border-primary/30 transition-colors">
+          <div className="flex flex-col items-start truncate mr-4 w-full">
+            <span className="text-[8px] font-black text-primary/60 uppercase tracking-widest mb-1">Network: MIND Blockchain</span>
+            <code className="text-xs font-mono text-white truncate w-full">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</code>
+          </div>
+          <button 
+            className="p-3 bg-white/5 rounded-xl text-gray-400 hover:text-primary hover:bg-primary/10 transition-all active:scale-90"
+            title="Copy Address"
+          >
             <Copy size={18} />
           </button>
         </div>
       </div>
 
-      <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4 text-left">
-        <p className="text-[10px] text-primary font-bold uppercase tracking-wider mb-1 italic">Automated System</p>
-        <p className="text-xs text-gray-400 leading-relaxed">
-          Deposits are processed automatically after 3 network confirmations. Please ensure you are sending on the correct network.
-        </p>
+      <div className="p-5 rounded-3xl bg-white/[0.02] border border-white/5 text-left flex gap-4">
+        <div className="shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <ShieldCheck size={20} className="text-primary" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-[10px] text-white font-black uppercase tracking-wider italic">Verification Protocol</p>
+          <p className="text-[11px] text-gray-500 leading-relaxed font-medium">
+            Assets will be credited to your vault after <span className="text-white font-bold underline decoration-primary/50 underline-offset-2">3 network confirmations</span>. Instant settlement for internal node transfers.
+          </p>
+        </div>
       </div>
 
-      <Button onClick={onClose} className="w-full">Done</Button>
+      <Button onClick={onClose} className="w-full h-14 uppercase text-[10px] font-black tracking-[0.3em] bg-primary text-black group overflow-hidden relative">
+        <span className="relative z-10 flex items-center justify-center gap-2">Finalize Session <Check size={16} /></span>
+        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform" />
+      </Button>
     </div>
   </Modal>
 );

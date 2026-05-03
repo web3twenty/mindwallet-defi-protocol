@@ -2,11 +2,14 @@ import React from 'react';
 import { Search, Bell, Menu, Zap, User } from 'lucide-react';
 import { Button } from '@/src/components/ui/Primitives';
 
-export const Header = ({ title, onProfileClick }: { title: string; onProfileClick?: () => void }) => {
+export const Header = ({ title, onProfileClick, onMenuClick }: { title: string; onProfileClick?: () => void; onMenuClick?: () => void }) => {
   return (
-    <header className="h-20 bg-background/50 backdrop-blur-xl border-b border-white/5 px-8 flex items-center justify-between sticky top-0 z-50">
-      <div className="flex items-center gap-6">
-        <button className="p-2 text-gray-400 hover:text-white lg:hidden">
+    <header className="h-20 bg-background/50 backdrop-blur-xl border-b border-white/5 px-4 md:px-8 flex items-center justify-between sticky top-0 z-50">
+      <div className="flex items-center gap-4 md:gap-6">
+        <button 
+          onClick={onMenuClick}
+          className="p-2 text-gray-400 hover:text-white lg:hidden"
+        >
           <Menu size={24} />
         </button>
         <h1 className="text-xl font-bold tracking-tight uppercase italic font-mono text-white">{title}</h1>

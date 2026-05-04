@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from '@/src/pages/Login';
 import Signup from '@/src/pages/Signup';
 import Dashboard from '@/src/pages/Dashboard';
+import ForgotPassword from '@/src/pages/ForgotPassword';
+import LostProtocol from '@/src/pages/LostProtocol';
 
 export default function App() {
   return (
@@ -11,6 +13,8 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/lost-protocol" element={<LostProtocol />} />
         {/* Fallback to login */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

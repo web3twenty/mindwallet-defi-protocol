@@ -29,37 +29,29 @@ import { motion } from 'motion/react';
 
 const MENU_GROUPS = [
   {
-    items: [{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard }]
-  },
-  {
-    items: [{ id: 'elite', label: 'Elite Member', icon: Star }]
-  },
-  {
-    items: [{ id: 'profile', label: 'My Profile', icon: UserRound }]
-  },
-  {
-    items: [{ id: 'community-token', label: 'Community Token', icon: Users, hasSub: true }]
-  },
-  {
-    items: [{ id: 'farming', label: 'Farming', icon: Wheat, hasSub: true }]
+    items: [
+      { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { id: 'elite', label: 'Elite Member', icon: Star },
+      { id: 'profile', label: 'My Profile', icon: UserRound }
+    ]
   },
   {
     items: [
       { id: 'stake', label: 'Stake & Earn', icon: Coins, hasSub: true },
-      { id: 'my-staking', label: 'My Staking', icon: ShieldCheck }
+      { id: 'my-staking', label: 'My Staking', icon: ShieldCheck },
+      { id: 'affiliate', label: 'Affiliate', icon: Users }
+    ]
+  },
+  {
+    items: [
+      { id: 'wallet', label: 'Wallet', icon: WalletIcon, hasSub: true },
+      { id: 'transactions', label: 'Transaction Report', icon: History, hasSub: true }
     ]
   },
   {
     items: [
       { id: 'become-merchant', label: 'Become Merchant', icon: Store },
       { id: 'merchant-wallet', label: 'Merchant Wallet', icon: Briefcase }
-    ]
-  },
-  {
-    items: [
-      { id: 'affiliate', label: 'Affiliate', icon: Share2, hasSub: true },
-      { id: 'wallet', label: 'Wallet', icon: WalletIcon, hasSub: true },
-      { id: 'transactions', label: 'Transaction Report', icon: History, hasSub: true }
     ]
   },
   {

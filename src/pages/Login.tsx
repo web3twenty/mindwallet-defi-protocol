@@ -59,28 +59,33 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex justify-between items-center ml-1">
-                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Secret Key</label>
-                <Link to="#" className="text-[9px] font-black text-primary uppercase tracking-widest hover:underline">Lost Protocol?</Link>
-              </div>
-              <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
-                  <Lock size={16} />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Secret Key</label>
+                <div className="relative group">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors">
+                    <Lock size={16} />
+                  </div>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    required
+                    className="w-full h-12 bg-white/5 border border-white/10 rounded-2xl pl-12 pr-12 text-sm text-white focus:outline-none focus:border-primary/50 transition-all focus:ring-4 focus:ring-primary/5"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  required
-                  className="w-full h-12 bg-white/5 border border-white/10 rounded-2xl pl-12 pr-12 text-sm text-white focus:outline-none focus:border-primary/50 transition-all focus:ring-4 focus:ring-primary/5"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
+              </div>
+              
+              <div className="flex justify-end items-center gap-3 pr-1">
+                <Link to="/forgot-password" className="text-[9px] font-black text-gray-600 uppercase tracking-widest hover:text-white transition-colors">Forgot Password?</Link>
+                <span className="text-[8px] text-white/10">•</span>
+                <Link to="/lost-protocol" className="text-[9px] font-black text-primary uppercase tracking-widest hover:underline">Lost Protocol?</Link>
               </div>
             </div>
 

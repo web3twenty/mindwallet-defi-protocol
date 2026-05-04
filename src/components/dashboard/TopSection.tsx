@@ -121,7 +121,9 @@ export const BalanceGrid = ({ onAction }: { onAction: (type: 'deposit' | 'withdr
     }
   ];
 
-  const WalletCard = ({ item }: { item: any }) => (
+  const WalletCard = (props: any) => {
+    const { item } = props;
+    return (
     <Card className={cn(
       "p-6 space-y-6 group transition-all cursor-default relative overflow-hidden backdrop-blur-xl border-t-2 bg-gradient-to-br",
       item.gradient,
@@ -191,7 +193,8 @@ export const BalanceGrid = ({ onAction }: { onAction: (type: 'deposit' | 'withdr
          </Button>
       </div>
     </Card>
-  );
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">

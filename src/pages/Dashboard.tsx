@@ -8,6 +8,7 @@ import { TransactionSection } from '@/src/components/dashboard/TransactionSectio
 import { EliteMember } from '@/src/components/dashboard/EliteMember';
 import { Profile } from '@/src/components/dashboard/Profile';
 import { DepositModal, WithdrawModal, TransferModal, ApplyEliteModal, StakeModal } from '@/src/components/dashboard/Modals';
+import { StakingHub } from '@/src/components/dashboard/StakingHub';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function Dashboard() {
@@ -51,6 +52,8 @@ export default function Dashboard() {
         );
       case 'elite':
         return <EliteMember onAction={openModal} />;
+      case 'stake':
+        return <StakingHub onAction={openModal} />;
       case 'transactions':
         return (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">

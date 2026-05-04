@@ -44,8 +44,7 @@ const MENU_GROUPS = [
   },
   {
     items: [
-      { id: 'earn-mind', label: 'Earn MIND', icon: Coins, hasSub: true },
-      { id: 'earn-musd', label: 'Earn MUSD', icon: CircleDollarSign, hasSub: true }
+      { id: 'stake', label: 'Stake & Earn', icon: Coins, hasSub: true }
     ]
   },
   {

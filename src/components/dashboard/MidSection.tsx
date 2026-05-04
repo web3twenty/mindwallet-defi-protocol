@@ -14,7 +14,7 @@ const ICON_MAP: Record<string, any> = {
   Award: Award
 };
 
-export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withdraw' | 'transfer', asset: string) => void }) => (
+export const StakingTable = ({ onAction }: { onAction: (type: 'deposit' | 'withdraw' | 'transfer' | 'stake', asset: string) => void }) => (
   <div className="space-y-6">
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-2">
       <h3 className="text-xl font-bold font-mono tracking-tighter uppercase italic flex items-center gap-3 text-white">

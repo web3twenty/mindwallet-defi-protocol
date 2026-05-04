@@ -213,7 +213,7 @@ export const TransactionSection = ({ onAction, isFullPage = false }: { onAction:
                           {tx.type}
                         </span>
                       </div>
-                      <Badge variant="outline" className={cn(
+                      <Badge variant="default" className={cn(
                         "w-fit text-[8px] h-4 font-black uppercase border-none",
                         tx.status === 'Completed' ? "bg-primary/10 text-primary" : 
                         tx.status === 'Pending' ? "bg-orange-500/10 text-orange-400" : 

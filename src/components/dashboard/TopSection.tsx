@@ -81,76 +81,122 @@ export const UserProfileCard = ({ onAction }: { onAction: (type: 'deposit' | 'wi
 export const BalanceGrid = ({ onAction }: { onAction: (type: 'deposit' | 'withdraw' | 'transfer', asset: string) => void }) => {
   const cards = [
     { 
+      label: 'USDT Available', 
+      value: '282.10', 
+      symbol: 'USDT', 
+      valueUsdt: '$282.10', 
+      image: '/usdt-icon.png', 
+      color: 'text-[#00ffa6]', 
+      bg: 'bg-emerald-500/[0.03]', 
+      border: 'border-emerald-500/20',
+      glow: 'shadow-emerald-500/10',
+      accent: 'bg-emerald-500',
+      gradient: 'from-emerald-500/[0.05] to-teal-500/[0.02]'
+    },
+    { 
       label: 'MUSD Portfolio', 
       value: '5,000.53', 
       symbol: 'MUSD', 
       valueUsdt: '$5,000.53', 
-      icon: CircleDollarSign, 
-      color: 'text-purple-400', 
-      bg: 'bg-purple-500/5', 
+      image: '/musd-icon.png', 
+      color: 'text-[#a855f7]', 
+      bg: 'bg-purple-500/[0.03]', 
       border: 'border-purple-500/20',
-      glow: 'shadow-purple-500/10'
+      glow: 'shadow-purple-500/10',
+      accent: 'bg-purple-500',
+      gradient: 'from-purple-500/[0.05] to-indigo-500/[0.02]'
     },
     { 
       label: 'BMIND Yield', 
       value: '1,240.22', 
       symbol: 'BMIND', 
       valueUsdt: '$10,542.12', 
-      icon: Coins, 
-      color: 'text-blue-400', 
-      bg: 'bg-blue-500/5', 
+      image: '/bmind-icon.png', 
+      color: 'text-[#3b82f6]', 
+      bg: 'bg-blue-500/[0.03]', 
       border: 'border-blue-500/20',
-      glow: 'shadow-blue-500/10'
-    },
-    { 
-      label: 'USDT Available', 
-      value: '282.10', 
-      symbol: 'USDT', 
-      valueUsdt: '$282.10', 
-      icon: Wallet2, 
-      color: 'text-orange-400', 
-      bg: 'bg-orange-500/5', 
-      border: 'border-orange-500/20',
-      glow: 'shadow-orange-500/10'
+      glow: 'shadow-blue-500/10',
+      accent: 'bg-blue-500',
+      gradient: 'from-blue-500/[0.05] to-cyan-500/[0.02]'
     }
   ];
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-      {cards.map((item, i) => (
-        <Card key={i} className={cn(
-          "p-5 md:p-6 space-y-6 group transition-all cursor-default relative overflow-hidden backdrop-blur-md",
-          item.bg,
-          item.border,
-          "hover:scale-[1.02] hover:shadow-2xl",
-          item.glow
-        )}>
-          <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.1] transition-opacity rotate-12 group-hover:rotate-0">
-            <item.icon size={100} />
+  const WalletCard = ({ item }: { item: any }) => (
+    <Card className={cn(
+      "p-6 space-y-6 group transition-all cursor-default relative overflow-hidden backdrop-blur-xl border-t-2 bg-gradient-to-br",
+      item.gradient,
+      item.border,
+      "hover:scale-[1.02] hover:shadow-2xl",
+      item.glow
+    )}>
+      <div className="absolute top-0 right-0 p-4 opacity-[0.05] group-hover:opacity-[0.15] transition-opacity rotate-12 group-hover:rotate-0 pointer-events-none scale-150">
+        <img src={item.image} alt="" className="w-24 h-24 object-contain filter grayscale brightness-200" />
+      </div>
+      
+      <div className="flex items-start justify-between relative z-10">
+        <div className="flex items-center gap-4">
+          <div className={cn("p-2.5 rounded-2xl bg-white/5 border border-white/10 group-hover:scale-110 group-hover:bg-white/15 transition-all shadow-2xl relative overflow-hidden")}>
+            <div className={cn("absolute inset-0 opacity-20 blur-lg", item.accent)} />
+            <img src={item.image} alt={item.symbol} className="w-8 h-8 object-contain relative z-10" />
           </div>
-          
-          <div className="flex items-start justify-between">
-            <div className={cn("p-3 rounded-2xl bg-white/5 border border-white/5 group-hover:scale-110 group-hover:bg-white/10 transition-all shadow-xl", item.color)}>
-              <item.icon size={18} />
-            </div>
-            <div className="text-right">
-              <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em]">{item.label}</p>
-              <p className="text-[10px] font-mono font-bold text-gray-600">{item.valueUsdt}</p>
-            </div>
+          <div>
+            <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.25em]">{item.label}</p>
+            <p className="text-[10px] font-mono font-bold text-gray-600">{item.valueUsdt}</p>
           </div>
-          
-          <div className="space-y-0.5">
-            <h4 className="text-xl md:text-2xl font-black font-mono text-white tracking-tighter leading-none">
-              {item.value} <span className="text-[10px] text-gray-600 font-bold tracking-widest">{item.symbol}</span>
-            </h4>
-          </div>
+        </div>
+      </div>
+      
+      <div className="space-y-0.5 relative z-10">
+        <h4 className="text-2xl md:text-3xl font-black font-mono text-white tracking-tighter leading-none flex items-baseline gap-2">
+          {item.value} <span className={cn("text-[10px] font-black tracking-widest", item.color)}>{item.symbol}</span>
+        </h4>
+      </div>
 
-          <div className="grid grid-cols-3 gap-2">
-             <Button variant="ghost" className="h-8 bg-white/5 border border-white/5 rounded-lg hover:bg-white/10 text-[7px] font-black uppercase tracking-widest" onClick={() => onAction('deposit', item.symbol)}>Deposit</Button>
-             <Button variant="ghost" className="h-8 bg-white/5 border border-white/5 rounded-lg hover:bg-white/10 text-[7px] font-black uppercase tracking-widest" onClick={() => onAction('withdraw', item.symbol)}>Withdraw</Button>
-             <Button variant="ghost" className={cn("h-10 md:h-8 bg-white/5 text-gray-300 border border-white/5 rounded-lg hover:text-white hover:bg-white/10 text-[7px] font-black uppercase tracking-widest", item.color.replace('text', 'hover:text'))} onClick={() => onAction('transfer', item.symbol)}>Transfer</Button>
-          </div>
-        </Card>
+      <div className="grid grid-cols-3 gap-2 relative z-10">
+         <Button 
+           variant="ghost" 
+           className={cn(
+             "h-9 bg-white/[0.05] border border-white/10 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all gap-1.5 text-white/70",
+             "hover:bg-white/15 hover:border-white/30 hover:text-white"
+           )} 
+           onClick={() => onAction('deposit', item.symbol)}
+         >
+           <ArrowDownLeft size={10} className={item.color} />
+           Deposit
+         </Button>
+         <Button 
+           variant="ghost" 
+           className={cn(
+             "h-9 bg-white/[0.05] border border-white/10 rounded-xl text-[8px] font-black uppercase tracking-widest transition-all gap-1.5 text-white/70",
+             "hover:bg-white/15 hover:border-white/30 hover:text-white"
+           )} 
+           onClick={() => onAction('withdraw', item.symbol)}
+         >
+           <ArrowUpRight size={10} className={item.color} />
+           Withdraw
+         </Button>
+         <Button 
+           variant="ghost" 
+           className={cn(
+             "h-9 border rounded-xl text-[8px] font-black uppercase tracking-widest transition-all shadow-lg gap-1.5 px-2",
+             item.bg.replace('/[0.03]', '/[0.1]'),
+             item.border.replace('/20', '/50'),
+             item.color,
+             "hover:bg-white/10 hover:border-white/60 hover:scale-105 active:scale-95"
+           )} 
+           onClick={() => onAction('transfer', item.symbol)}
+         >
+           <RefreshCw size={10} />
+           Transfer
+         </Button>
+      </div>
+    </Card>
+  );
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      {cards.map((item, i) => (
+        <WalletCard key={i} item={item} />
       ))}
     </div>
   );

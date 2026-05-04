@@ -336,23 +336,23 @@ export const StakeModal = ({ isOpen, onClose, asset }: { isOpen: boolean, onClos
   );
 };
 
-export const ApplyEliteModal = ({ isOpen, onClose, onDeposit }: { isOpen: boolean, onClose: () => void, onDeposit: () => void }) => {
-  const usdtBalance = 282.10; // Mocked balance for now
-  const price = 1250;
-  const hasEnoughFunds = usdtBalance >= price;
+export const ApplyEliteModal = ({ isOpen, onClose, onDeposit, asset }: { isOpen: boolean, onClose: () => void, onDeposit: () => void, asset: string }) => {
+  const balance = asset === 'USDT' ? 282.10 : 2500.00; // Mocked balances
+  const price = asset === 'USDT' ? 1250 : 1000;
+  const hasEnoughFunds = balance >= price;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Confirm Application">
+    <Modal isOpen={isOpen} onClose={onClose} title={`Apply for Elite ${asset === 'USDT' ? 'v1' : 'v2'}`}>
       <div className="space-y-6">
         <div className="p-5 rounded-3xl bg-white/[0.02] border border-white/5 space-y-4">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">Package Price</span>
-            <span className="text-white font-mono font-bold text-xs">$1,250.00</span>
+            <span className="text-white font-mono font-bold text-xs uppercase">{price.toLocaleString()} {asset}</span>
           </div>
           <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">Your USDT Balance</span>
+            <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">Your {asset} Balance</span>
             <span className={cn("font-mono font-bold text-xs", hasEnoughFunds ? "text-primary" : "text-red-500")}>
-              ${usdtBalance.toFixed(2)}
+              {balance.toLocaleString()} {asset}
             </span>
           </div>
           <div className="h-px bg-white/5" />
@@ -370,17 +370,22 @@ export const ApplyEliteModal = ({ isOpen, onClose, onDeposit }: { isOpen: boolea
           <div className="p-4 rounded-3xl bg-gradient-to-br from-red-500/10 via-transparent to-transparent border border-red-500/20 text-center space-y-4">
             <div className="space-y-1">
               <p className="text-[10px] text-red-400 font-bold uppercase tracking-wider">Insufficient Funds</p>
-              <p className="text-[11px] text-gray-500 leading-relaxed font-medium">You need an additional <span className="text-white font-bold font-mono">${(price - usdtBalance).toFixed(2)} USDT</span> to join the Elite Club.</p>
+              <p className="text-[11px] text-gray-500 leading-relaxed font-medium">You need an additional <span className="text-white font-bold font-mono">{(price - balance).toLocaleString()} {asset}</span> to join the Elite Club.</p>
             </div>
             <button 
-              className="w-full h-12 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-[length:200%_auto] animate-gradient-x hover:scale-[1.02] active:scale-95 border-none text-white text-[10px] uppercase font-black tracking-[0.2em] shadow-[0_8px_30px_rgba(239,68,68,0.4)] transition-all rounded-2xl flex items-center justify-center gap-3 group"
+              className={cn(
+                "w-full h-12 bg-gradient-to-r bg-[length:200%_auto] animate-gradient-x hover:scale-[1.02] active:scale-95 border-none text-white text-[10px] uppercase font-black tracking-[0.2em] shadow-xl transition-all rounded-2xl flex items-center justify-center gap-3 group",
+                asset === 'USDT' 
+                  ? "from-red-500 via-orange-500 to-red-500 shadow-red-500/40" 
+                  : "from-purple-500 via-blue-500 to-purple-500 shadow-purple-500/40"
+              )}
               onClick={() => {
                 onClose();
                 onDeposit();
               }}
             >
               <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              Deposit USDT Now
+              Deposit {asset} Now
               <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>

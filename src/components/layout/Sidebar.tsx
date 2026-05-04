@@ -31,7 +31,7 @@ const MENU_GROUPS = [
     items: [{ id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard }]
   },
   {
-    items: [{ id: 'elit', label: 'Elite Member', icon: Star }]
+    items: [{ id: 'elite', label: 'Elite Member', icon: Star }]
   },
   {
     items: [{ id: 'profile', label: 'My Profile', icon: UserRound }]
@@ -58,7 +58,7 @@ const MENU_GROUPS = [
     items: [
       { id: 'affiliate', label: 'Affiliate', icon: Share2, hasSub: true },
       { id: 'wallet', label: 'Wallet', icon: WalletIcon, hasSub: true },
-      { id: 'bw-history', label: 'B.W Trans. History', icon: History, hasSub: true }
+      { id: 'transactions', label: 'Transaction Report', icon: History, hasSub: true }
     ]
   },
   {

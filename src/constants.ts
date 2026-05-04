@@ -80,17 +80,28 @@ export interface Transaction {
   type: 'Credit' | 'Debit';
   description: string;
   date: string;
+  status: 'Completed' | 'Pending' | 'Failed';
+  asset: 'USDT' | 'MUSD' | 'MIND' | 'BMIND';
 }
 
-export const TRANSACTIONS: Transaction[] = Array.from({ length: 10 }).map((_, i) => ({
-  id: `tx-${i}`,
-  no: i + 1,
-  method: i % 3 === 0 ? 'Liquid Staking Harvest' : i % 2 === 0 ? 'Node Validator Reward' : 'Daily Staking Bonus',
-  amount: i % 2 === 0 ? `$${(Math.random() * 50).toFixed(2)}` : `$${(Math.random() * 5).toFixed(2)}`,
-  type: i % 4 === 0 ? 'Debit' : 'Credit',
-  description: i % 4 === 0 ? 'Withdrawal to external wallet' : 'Daily Bonus for purchasing Staking Package',
-  date: new Date(Date.now() - i * 86400000).toISOString().split('T')[0]
-}));
+export const TRANSACTIONS: Transaction[] = Array.from({ length: 50 }).map((_, i) => {
+  const methods = ['Liquid Staking Harvest', 'Node Validator Reward', 'Daily Staking Bonus', 'External Deposit', 'Vault Withdrawal', 'Internal Transfer', 'Staking Purchase'];
+  const method = methods[i % methods.length];
+  const assets: Transaction['asset'][] = ['USDT', 'MUSD', 'MIND', 'BMIND'];
+  const statuses: Transaction['status'][] = ['Completed', 'Pending', 'Failed'];
+  
+  return {
+    id: `tx-${i}`,
+    no: i + 1,
+    method,
+    amount: i % 2 === 0 ? (Math.random() * 500).toFixed(2) : (Math.random() * 50).toFixed(2),
+    type: i % 4 === 0 ? 'Debit' : 'Credit',
+    description: `${method} processing for node reference #${1000 + i}`,
+    date: new Date(Date.now() - i * 43200000).toISOString().split('T')[0],
+    asset: assets[i % assets.length],
+    status: i % 10 === 0 ? 'Pending' : i % 15 === 0 ? 'Failed' : 'Completed'
+  };
+});
 
 export const MARKET_STATS = {
   mindPrice: '$0.0350',

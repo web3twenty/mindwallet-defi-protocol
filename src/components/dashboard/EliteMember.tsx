@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Button, Badge } from '@/src/components/ui/Primitives';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Star, 
   Zap, 
@@ -22,6 +22,8 @@ import {
 import { cn } from '@/src/lib/utils';
 
 export const EliteMember = ({ onAction }: { onAction?: (type: any, asset: string) => void }) => {
+  const [activeVersion, setActiveVersion] = useState<'v1' | 'v2'>('v1');
+
   const benefits = [
     { title: "Early Access", desc: "Be the first to explore and utilize Mindchain's groundbreaking blockchain innovations." },
     { title: "Exclusive Updates", desc: "Stay ahead of the curve with exclusive updates, news, and industry trends." },
@@ -140,30 +142,96 @@ export const EliteMember = ({ onAction }: { onAction?: (type: any, asset: string
         ))}
       </section>
 
-      {/* Membership CTA Section - Optimized Height */}
-      <section className="relative glass rounded-3xl p-8 md:p-12 border-white/10 overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-primary/10 via-transparent to-blue-500/10 pointer-events-none" />
-        <div className="relative z-10 flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
-          <div className="space-y-3">
-            <h2 className="text-2xl md:text-3xl font-black font-mono tracking-tighter uppercase italic leading-tight">Join the Inner Circle</h2>
-            <p className="text-gray-400 font-medium text-xs leading-relaxed max-w-md mx-auto">Membership is strictly limited to maintain reward ratios. Secure your position in the MindClub today.</p>
+      {/* Membership Selection Tabs */}
+      <section className="flex justify-center gap-4 px-4">
+        <button 
+          onClick={() => setActiveVersion('v1')}
+          className={cn(
+            "flex-1 max-w-[240px] px-6 py-4 rounded-2xl border transition-all text-center group relative overflow-hidden",
+            activeVersion === 'v1' 
+              ? "bg-primary/10 border-primary shadow-[0_0_20px_rgba(0,255,136,0.1)]" 
+              : "bg-white/5 border-white/10 hover:border-white/20"
+          )}
+        >
+          <div className="relative z-10 space-y-1">
+            <p className={cn("text-[9px] font-black uppercase tracking-widest", activeVersion === 'v1' ? "text-primary" : "text-gray-500")}>Version 01</p>
+            <h3 className="text-sm font-bold text-white uppercase italic">USDT PRESTIGE</h3>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-sm">
-            <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center space-y-0.5">
-              <p className="text-[8px] font-black text-gray-600 uppercase tracking-widest">Entry Deposit</p>
-              <p className="text-2xl font-bold font-mono text-white tracking-tighter italic">$1,250</p>
-            </div>
-            <button 
-              onClick={() => onAction?.('apply-elite', 'USDT')}
-              className="bg-primary px-8 py-3 rounded-2xl flex flex-col items-center justify-center group cursor-pointer hover:shadow-[0_0_30px_rgba(0,255,136,0.3)] transition-all active:scale-95"
-            >
-              <p className="text-[8px] font-black text-black/60 uppercase tracking-widest mb-0.5">Status</p>
-              <span className="text-base font-bold text-black uppercase tracking-[0.1em] flex items-center gap-2 italic">Apply <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></span>
-            </button>
+          {activeVersion === 'v1' && <div className="absolute inset-0 bg-primary/5 animate-pulse" />}
+        </button>
+
+        <button 
+          onClick={() => setActiveVersion('v2')}
+          className={cn(
+            "flex-1 max-w-[240px] px-6 py-4 rounded-2xl border transition-all text-center group relative overflow-hidden",
+            activeVersion === 'v2' 
+              ? "bg-purple-500/10 border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.1)]" 
+              : "bg-white/5 border-white/10 hover:border-white/20"
+          )}
+        >
+          <div className="relative z-10 space-y-1">
+            <p className={cn("text-[9px] font-black uppercase tracking-widest", activeVersion === 'v2' ? "text-purple-400" : "text-gray-500")}>Version 02</p>
+            <h3 className="text-sm font-bold text-white uppercase italic">MUSD PROTOCOL</h3>
           </div>
-        </div>
+          {activeVersion === 'v2' && <div className="absolute inset-0 bg-purple-500/5 animate-pulse" />}
+        </button>
       </section>
+
+      {/* Membership CTA Section - Optimized Height */}
+      <AnimatePresence mode="wait">
+        <motion.section 
+          key={activeVersion}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className={cn(
+            "relative glass rounded-3xl p-8 md:p-12 border overflow-hidden",
+            activeVersion === 'v1' ? "border-primary/20" : "border-purple-500/20"
+          )}
+        >
+          <div className={cn(
+            "absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-transparent via-transparent pointer-events-none",
+            activeVersion === 'v1' ? "to-primary/10" : "to-purple-500/10"
+          )} />
+          <div className="relative z-10 flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
+            <div className="space-y-3">
+              <h2 className="text-2xl md:text-3xl font-black font-mono tracking-tighter uppercase italic leading-tight">
+                {activeVersion === 'v1' ? 'Secure USDT Prestige' : 'MUSD Elite Protocol'}
+              </h2>
+              <p className="text-gray-400 font-medium text-xs leading-relaxed max-w-md mx-auto">
+                {activeVersion === 'v1' 
+                  ? 'Join the primary elite circle using standard USDT assets for maximum stability.' 
+                  : 'Optimize your yield with internal MUSD liquidity paths and enhanced residuals.'}
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-sm">
+              <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center space-y-0.5">
+                <p className="text-[8px] font-black text-gray-600 uppercase tracking-widest">Initial Stake</p>
+                <p className="text-2xl font-bold font-mono text-white tracking-tighter italic">
+                  {activeVersion === 'v1' ? '$1,250' : '1,000 MUSD'}
+                </p>
+              </div>
+              <button 
+                onClick={() => onAction?.('apply-elite', activeVersion === 'v1' ? 'USDT' : 'MUSD')}
+                className={cn(
+                  "px-8 py-3 rounded-2xl flex flex-col items-center justify-center group cursor-pointer transition-all active:scale-95",
+                  activeVersion === 'v1' 
+                    ? "bg-primary hover:shadow-[0_0_30px_rgba(0,255,136,0.3)]" 
+                    : "bg-purple-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]"
+                )}
+              >
+                <p className={cn("text-[8px] font-black uppercase tracking-widest mb-0.5", activeVersion === 'v1' ? "text-black/60" : "text-white/60")}>Status</p>
+                <span className={cn("text-base font-bold uppercase tracking-[0.1em] flex items-center gap-2 italic", activeVersion === 'v1' ? "text-black" : "text-white")}>
+                  {activeVersion === 'v1' ? 'Activate v1' : 'Launch v2'} 
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </button>
+            </div>
+          </div>
+        </motion.section>
+      </AnimatePresence>
 
       {/* Community Section - Minimalist */}
       <section className="pt-8 border-t border-white/5 flex flex-wrap justify-center gap-6 md:gap-10 opacity-50 hover:opacity-100 transition-opacity">

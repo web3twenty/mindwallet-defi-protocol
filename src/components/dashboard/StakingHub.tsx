@@ -19,7 +19,7 @@ interface StakingProps {
 }
 
 export const StakingHub = ({ onAction }: StakingProps) => {
-  const [activeProto, setActiveProto] = useState<'mind' | 'musd'>('mind');
+  const [activeProto, setActiveProto] = useState<'mind' | 'musd' | 'bmind'>('mind');
 
   const mindStats = [
     { label: 'Network APR', value: '18.4%', icon: TrendingUp, color: 'text-amber-400' },
@@ -33,6 +33,18 @@ export const StakingHub = ({ onAction }: StakingProps) => {
     { label: 'Total Rewards', value: '124.50 MUSD', icon: Award, color: 'text-emerald-400' }
   ];
 
+  const bmindStats = [
+    { label: 'Governance APR', value: '24.2%', icon: TrendingUp, color: 'text-blue-400' },
+    { label: 'Your Staked', value: '850 BMIND', icon: ShieldCheck, color: 'text-blue-500' },
+    { label: 'Total Rewards', value: '12.80 BMIND', icon: Award, color: 'text-amber-400' }
+  ];
+
+  const getActiveStats = () => {
+    if (activeProto === 'mind') return mindStats;
+    if (activeProto === 'musd') return musdStats;
+    return bmindStats;
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Header section */}
@@ -43,11 +55,11 @@ export const StakingHub = ({ onAction }: StakingProps) => {
         </div>
         
         {/* Tab Switcher */}
-        <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl w-full md:w-auto">
+        <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl w-full md:w-auto overflow-x-auto no-scrollbar">
           <button 
             onClick={() => setActiveProto('mind')}
             className={cn(
-              "flex-1 md:w-40 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2",
+              "flex-1 md:w-32 py-2.5 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 whitespace-nowrap",
               activeProto === 'mind' ? "bg-white/10 text-white shadow-xl" : "text-gray-500 hover:text-gray-300"
             )}
           >
@@ -57,19 +69,29 @@ export const StakingHub = ({ onAction }: StakingProps) => {
           <button 
             onClick={() => setActiveProto('musd')}
             className={cn(
-              "flex-1 md:w-40 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2",
+              "flex-1 md:w-32 py-2.5 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 whitespace-nowrap",
               activeProto === 'musd' ? "bg-white/10 text-white shadow-xl" : "text-gray-500 hover:text-gray-300"
             )}
           >
             <img src="/musd-icon.png" className="w-4 h-4 object-contain" alt="" />
             Earn MUSD
           </button>
+          <button 
+            onClick={() => setActiveProto('bmind')}
+            className={cn(
+              "flex-1 md:w-32 py-2.5 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 whitespace-nowrap",
+              activeProto === 'bmind' ? "bg-white/10 text-white shadow-xl" : "text-gray-500 hover:text-gray-300"
+            )}
+          >
+            <img src="/bmind-icon.png" className="w-4 h-4 object-contain" alt="" />
+            Earn BMIND
+          </button>
         </div>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        {(activeProto === 'mind' ? mindStats : musdStats).map((stat, i) => (
+        {getActiveStats().map((stat, i) => (
           <Card key={i} className="p-6 bg-white/[0.02] border-white/5 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity">
               <stat.icon size={64} />
@@ -101,31 +123,31 @@ export const StakingHub = ({ onAction }: StakingProps) => {
             <Card className="p-8 md:p-10 border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent relative overflow-hidden">
                <div className={cn(
                  "absolute -top-24 -right-24 w-64 h-64 blur-[100px] opacity-20",
-                 activeProto === 'mind' ? "bg-amber-500" : "bg-purple-500"
+                 activeProto === 'mind' ? "bg-amber-500" : activeProto === 'musd' ? "bg-purple-500" : "bg-blue-500"
                )} />
                
                <div className="relative z-10 space-y-8">
                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-5">
                        <div className="p-4 rounded-3xl bg-white/5 border border-white/10 shadow-2xl skew-x-[-12deg]">
-                          <img src={activeProto === 'mind' ? "/mind-icon.png" : "/musd-icon.png"} className="w-12 h-12 object-contain skew-x-[12deg]" alt="" />
+                          <img src={`/${activeProto}-icon.png`} className="w-12 h-12 object-contain skew-x-[12deg]" alt="" />
                        </div>
                        <div>
                           <h2 className="text-2xl font-black font-mono tracking-tighter italic uppercase">
-                            {activeProto === 'mind' ? 'Mind Validator Staking' : 'MUSA Reserve Protocol'}
+                            {activeProto === 'mind' ? 'Mind Validator Staking' : activeProto === 'musd' ? 'MUSA Reserve Protocol' : 'BMIND Governance Vault'}
                           </h2>
                           <div className="flex items-center gap-3 mt-1">
                              <Badge className="bg-primary/20 text-primary border-none text-[8px] font-black uppercase">Active Yield</Badge>
                              <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-1">
-                                <Clock size={10} /> 21 Day Unbonding
+                                <Clock size={10} /> {activeProto === 'bmind' ? '7 Day Unbonding' : '21 Day Unbonding'}
                              </span>
                           </div>
                        </div>
                     </div>
                     <div className="text-right">
                        <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1">Estimated Monthly Rewards</p>
-                       <p className={cn("text-3xl font-black font-mono italic tracking-tighter", activeProto === 'mind' ? "text-amber-400" : "text-purple-400")}>
-                          {activeProto === 'mind' ? '232.00 MIND' : '52.50 MUSD'}
+                       <p className={cn("text-3xl font-black font-mono italic tracking-tighter", activeProto === 'mind' ? "text-amber-400" : activeProto === 'musd' ? "text-purple-400" : "text-blue-400")}>
+                          {activeProto === 'mind' ? '232.00 MIND' : activeProto === 'musd' ? '52.50 MUSD' : '45.10 BMIND'}
                        </p>
                     </div>
                  </div>

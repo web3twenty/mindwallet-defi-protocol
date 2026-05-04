@@ -21,7 +21,8 @@ import {
   Compass,
   Menu,
   X,
-  Brain
+  Brain,
+  ShieldCheck
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { motion } from 'motion/react';
@@ -44,7 +45,8 @@ const MENU_GROUPS = [
   },
   {
     items: [
-      { id: 'stake', label: 'Stake & Earn', icon: Coins, hasSub: true }
+      { id: 'stake', label: 'Stake & Earn', icon: Coins, hasSub: true },
+      { id: 'my-staking', label: 'My Staking', icon: ShieldCheck }
     ]
   },
   {
